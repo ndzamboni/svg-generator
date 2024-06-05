@@ -34,4 +34,36 @@ async function promptUser() {
 
 function generateSVG({ text, textColor, shape, shapeColor }) {
     let selectedShape;
+
+    switch (shape) {
+        case 'Triangle':
+            selectedShape = new Triangle();
+            break;
+        case 'Circle':
+            selectedShape = new Circle();
+            break;
+        case 'Square':
+            selectedShape = new Square();
+            break;
+    }
+
+    selectedShape.setColor(shapeColor);
+
+    const svgContent = 
+    `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    ${selectedShape.render()}
+    <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textColor}">${text}</text>
+</svg>`;
+
+    return svgContent;
 }
+
+async function init() {
+    const answers = await promptUser();
+    const svg = generateSVG(answers);
+
+    fs.writeFileSync('logo.svg', svg, 'utf8');
+    console.log('Logo created!');
+}   
+
+init();
