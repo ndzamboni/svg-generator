@@ -1,6 +1,6 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const { Triangle, Circle, Square } = require('./lib/shapes');
+import inquirer from 'inquirer';
+import fs from 'fs';
+import { Triangle, Circle, Square } from './lib/shapes.mjs';
 
 async function promptUser() {
     const answers = await inquirer.prompt([
@@ -8,28 +8,27 @@ async function promptUser() {
             type: 'input',
             name: 'text',
             message: 'Enter text for the logo (up to 3 characters):',
-
+            validate: input => input.length <= 3 || 'Text must be 3 characters or less'
         },
         {
             type: 'input',
             name: 'textColor',
-            message: 'Enter text color (e.g. red, #ff0000, rgb(255,0,0)):',
+            message: 'Enter text color (keyword or hexadecimal):',
         },
         {
             type: 'list',
             name: 'shape',
-            message: 'Select a shape:',
-            choices: ['Triangle', 'Circle', 'Square'],
+            message: 'Choose a shape:',
+            choices: ['Triangle', 'Circle', 'Square']
         },
         {
             type: 'input',
             name: 'shapeColor',
-            message: 'Enter shape color (e.g. red, #ff0000, rgb(255,0,0)):',
+            message: 'Enter shape color (keyword or hexadecimal):',
         }
     ]);
 
     return answers;
-
 }
 
 function generateSVG({ text, textColor, shape, shapeColor }) {
@@ -49,8 +48,8 @@ function generateSVG({ text, textColor, shape, shapeColor }) {
 
     selectedShape.setColor(shapeColor);
 
-    const svgContent = 
-    `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    const svgContent = `
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
     ${selectedShape.render()}
     <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textColor}">${text}</text>
 </svg>`;
@@ -63,7 +62,7 @@ async function init() {
     const svg = generateSVG(answers);
 
     fs.writeFileSync('logo.svg', svg, 'utf8');
-    console.log('Logo created!');
-}   
+    console.log('Generated logo.svg');
+}
 
 init();
