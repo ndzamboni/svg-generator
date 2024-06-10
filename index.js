@@ -1,9 +1,9 @@
-const inquirer = require('inquirer');
 const fs = require('fs');
 const { Triangle, Circle, Square } = require('./lib/shapes.js');
 
 async function promptUser() {
-    const answers = await inquirer.prompt([
+    const inquirer = await import('inquirer');
+    const answers = await inquirer.default.prompt([
         {
             type: 'input',
             name: 'text',
