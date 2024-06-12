@@ -2,6 +2,11 @@
 
 This project generates a simple SVG logo based on user input. Users can select a shape (Triangle, Circle, or Square), set the colors for the shape and text, and input up to three characters of text.
 
+<!-- insert video file -->
+
+[Watch the video on Google Drive](https://drive.google.com/file/d/1hLBtzWBnca3md90SMErZsw--MF6YwSbX/view?usp=sharing)
+
+
 ## Table of Contents
 - [🎯 Installation](#installation)
 - [🚀 Usage](#usage)
